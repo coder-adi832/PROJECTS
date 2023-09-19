@@ -4,11 +4,14 @@
 #include <stdlib.h>
 #include <windows.h>
 
-int gameover = 1;
+int x, y, w, z, c=1;
 
+int gameover = 1;
+int move = 0;
+std::string s = "          1  2  3                    4  5  6                    7  8  9           ";
 void genrate_matrix()
 {
-    std::string s = "                                                                                 ";
+
     int k = 0;
     for (int i = 0; i < 11; i++)
     {
@@ -36,8 +39,33 @@ void genrate_matrix()
         std::cout << std::endl;
     }
 }
-void input()
+void get_pos(){
+    while (c > 0 && gameover)
+    {
+        
+        // system("cls");
+        mouse_event(MOUSEEVENTF_MOVE, x, y, w, z);
+        POINT pt;
+        GetCursorPos(&pt);
+        x = pt.x;
+        y = pt.y;
+        // std::cout << x << "," << y << std::endl;
+        Sleep(100);
+        x = 0;
+        y = 0;
+        if (kbhit())
+    {
+        char ch = getch();
+        if (ch == 'x')
+        {
+            gameover = 0;
+        }
+    }
+    }
+}
+void input(int player)
 {
+    std::cout << "Player " << player << " move ";
     if (kbhit())
     {
         char ch = getch();
@@ -46,6 +74,10 @@ void input()
             gameover = 0;
         }
     }
+
+    
+
+    get_pos();
 }
 int main()
 {
@@ -60,10 +92,13 @@ int main()
             {
                 system("cls");
                 genrate_matrix();
-                input();
+                if (move % 2)
+                    input(2); // palyer two move
+                else
+                    input(1); // player one move
                 Sleep(500);
             }
-        std::cout << "Do you want to play more(y/n) : ";
+        std::cout << "\n\nDo you want to play more(y/n) : ";
         std::cin >> ch;
     } while (ch == 'y');
 }
