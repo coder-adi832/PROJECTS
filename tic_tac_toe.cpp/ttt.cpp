@@ -49,6 +49,21 @@ void get_pos(){
         GetCursorPos(&pt);
         x = pt.x;
         y = pt.y;
+         if (GetAsyncKeyState(VK_LBUTTON))
+         {
+            if(x>=500&&x<=553&&y>=768&&y<=824){
+                std::cout<<"player ";
+                return;
+            }
+            else if(x>=562&&x<=624&&y>=768&&y<=824){
+                std::cout<<"player ";
+                return;
+            }
+            else if(x>=634&&x<=700&&y>=768&&y<=824){
+                std::cout<<"player ";
+                return;
+            }
+         }
         // std::cout << x << "," << y << std::endl;
         Sleep(100);
         x = 0;
